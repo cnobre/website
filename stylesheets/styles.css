@@ -219,6 +219,11 @@ header li:last-child a {
  
 }
 
+.author{
+  color:#237ba1;
+  font-weight: 500;
+}
+
 .h1tab{
   background-color:#237ba1;
   color:white;
