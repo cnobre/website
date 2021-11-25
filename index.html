@@ -25,7 +25,7 @@
           <div class="detailsContainer">
           <h1 class="h1name">Carolina Nobre</h1>
 
-        <h3 class='hdsiLink'><a target="_blank" href=" https://datascience.harvard.edu/people/carolina-nobre">HDSI Post Doctoral Fellow</a></h3>
+        <h3 class='hdsiLink'><a target="_blank" href=" https://datascience.harvard.edu/people/carolina-nobre">HDSI Postdoctoral Fellow</a></h3>
         <!-- Photo -->
        <img width="240px" src="./assets/img/nobre_profile.jpeg">
         <p>
@@ -79,7 +79,7 @@
           <hr>
 
          <p>
-          I am a PostDoctoral Fellow with the <a target="_blank" href="https://vcg.seas.harvard.edu/">Visual Computing Group </a>at the School of Engineering and Applied Sciences at Harvard University. 
+          I am a Postdoctoral Fellow with the <a target="_blank" href="https://vcg.seas.harvard.edu/">Visual Computing Group </a>at the School of Engineering and Applied Sciences at Harvard University. 
          </p> 
 
          <p>
@@ -323,10 +323,26 @@ function loadImage() {
     let labels = ['Trust_in_Science_Vis', 'Provenance_Visualization', 'Multivariate_Graph_Visualization', 'Experiential_Learning_For_Visualization'].map(d=>'#'+d).join(',')
 
     let topics = {
-      'Trust_in_Science_Vis':{title:"Trust in Science",'blurb':'My research on trust in science explores the aspects of visualizations that promote or hinder the establishment of trust in science. '},
-      'Provenance_Visualization':{title:'Provenance Analysis','blurb':'My research on Provenance analysis investigates how detailed provenance tracking and analysis can provide insights into the interaction patterns that viewers employ when using new and complex visualizations. '},
-      'Multivariate_Graph_Visualization':{title:'Multivariate Network Visualization','blurb':'My research on multivariate networks explores novel way of visualizing multivariate graphs, incorporating interaction as a key compoment of reducing visual complexity in large networks.'},
-      'Experiential_Learning_For_Visualization':{title: 'Experiential Learning','blurb':'My research on Experiential Learning investigates how applying guided learning activities allows users of varying degrees of visual literacy to learn and interact with new and complex visualizations.'}
+      'Trust_in_Science_Vis': 
+      { title: "Trust in Science",
+       'blurb': 'My research on trust in science explores how cognitive and affective mechanisms of trust come into play when looking at visualizations. ',
+       pubs:'Nobre et. al, 2020' 
+      },
+      'Provenance_Visualization': 
+      { title: 'Provenance Analysis', 
+      'blurb': 'My research on Provenance analysis investigates how detailed provenance tracking and analysis can provide insights into the interaction patterns that viewers employ when using new and complex visualizations. ' ,
+      pubs:'Nobre et. al, 2020'  
+      },
+      'Multivariate_Graph_Visualization':
+       { title: 'Multivariate Network Visualization', 
+       'blurb': 'My research on multivariate networks explores novel way of visualizing multivariate graphs, incorporating interaction as a key compoment of reducing visual complexity in large networks.' ,
+       pubs:'' 
+      },
+      'Experiential_Learning_For_Visualization':
+       { title: 'Experiential Learning',
+       'blurb': 'My research on Experiential Learning investigates how applying guided learning activities allows users of varying degrees of visual literacy to learn and interact with new and complex visualizations.' ,
+       pubs:'' 
+      },
     }
     console.log('labels', labels)
     let areaLabels = d3.select('svg').selectAll(labels)
@@ -338,7 +354,7 @@ function loadImage() {
                     // .style("opacity", 1)
                     .style("visibility", "visible")
 
-                    .style("left", event.pageX + 20 + "px")
+                    .style("left", event.pageX + 5 + "px")
                     .style("top", event.pageY + "px")
                     .select('.tooltipHeader')             
                     .html(`
@@ -350,12 +366,42 @@ function loadImage() {
                     .html(`
                          ${info.blurb}
                       `);
+
+                    //   tooltip .select('.tooltipPubs')             
+                    // .html(`
+                    //      ${info.pubs}
+                    //   `);
+
+                  //     tooltip
+                  //  .select('img')             
+                  //   .attr('src',"./assets/img/trust_in_science.png");
     })
     .on('mouseout',function(event){
       tooltip
                     // .style("opacity", 1)
                     .style("visibility", "hidden")
     })
+
+    let yDiff={};; 
+    d3.selectAll('#Ellipse_249, #Ellipse_250').call(d3.drag()
+    .on('start',function (event,d){
+      let circleY = d3.select(this).select('circle').attr('cy');
+      let Y = event.y;
+      yDiff[d3.select(this).attr('id')] = Y-circleY;
+
+    })
+    .on("drag",function (event,d){
+
+      let mouseY = event.y > 700 ? 700 : (event.y< 365 ? 365 : event.y)
+      let newY = mouseY-yDiff[d3.select(this).attr('id')] 
+
+
+    d3.select(this).selectAll('circle').attr('cy',newY);
+        })
+        // .on('end',function(event){
+        //     console.log(event.y)
+        // })
+        )
 
   });
 
@@ -364,15 +410,26 @@ function loadImage() {
     .attr('class', "tooltip")
     .style("visibility", "hidden")
 
-    // tooltip
-    // .append('div')
-    // .attr('class', 'tooltipHeader')
+    tooltip
+    .append('div')
+    .attr('class', 'tooltipHeader')
     
-    // tooltip.append('hr').attr('class', 'hrTooltip')
+    tooltip.append('hr').attr('class', 'hrTooltip')
 
     tooltip
     .append('div')
     .attr('class', 'tooltipBlurb')
+
+    // tooltip.append('hr').attr('class', 'hrTooltip')
+    // tooltip.append('h3').html('Relevant Publications')
+
+    tooltip
+    .append('div')
+    .attr('class', 'tooltipPubs')
+
+        tooltip
+    .append('img')
+    
     // <hr>
 
 }

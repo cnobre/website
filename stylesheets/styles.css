@@ -13,18 +13,20 @@ body {
   position: absolute;
   text-align: center;
   font: 12px sans-serif;
-  background-color: #eaeaea;
+  background-color: #ececec;
   color: rgb(57, 57, 57);
   padding: 5px 10px;
   border-radius: 4px; 
-  width:280px; 
-  opacity:.9
+  width:320px; 
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
+
+  /* opacity:1 */
 /* height:200px; */
 }
 
 .tooltip h3,h4 {
   text-align: left;
-/* color:white; */
+color:#d4850c;
 font: 16px sans-serif;
 /* font-family:'Lato' !important; */
 line-height: 23px;
@@ -35,7 +37,7 @@ margin-bottom:5px
 .tooltipBlurb{
   text-align: left;
 /* color:white; */
-font: 12px sans-serif;
+font-size: 1.2em;
 /* font-family:'Lato' !important; */
 line-height: 23px;
 padding-top:5px;
